@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UCF Coding Bootcamp Fun Sounds!</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
+    <!-- JavaScript -->
+    <script type="text/javascript">
+        var currentAudio = "";
+
+        function playAudio() {
+            console.log("playAudio this: ", this);
+            console.log("this.audio:", $(this).attr("data-audio"));
+
+
+            if (currentAudio != "") stopAudio();
+            currentAudio = $(this).attr("data-audio");
+            console.log(currentAudio);
+            document.getElementById(currentAudio).play();
+        }
+
+        function stopAudio() {
+            document.getElementById(currentAudio).pause();
+            document.getElementById(currentAudio).currentTime = 0;
+        }
+
+        function createButtons(numAudio) {
+            var $buttonDiv = $('#soundsDiv');
+            // Empty of existing buttons
+            $buttonDiv.empty();
+            // Build jquery button object and append
+
+            for (var i = 1; i <= numAudio; i++) {
+                var $audioButton = $('<button>')
+                    .text("Applause " + i)
+                    .addClass("btn btn-primary")
+                    .attr('data-audio', 'applause' + i.toString())
+                    .on("click", playAudio)
+                    .appendTo($buttonDiv);
+
+                var $audioDiv = $('<audio>')
+                    .attr('id', 'applause' + i.toString())
+                    .attr('src', 'audio/applause' + i.toString() + '.mp3')
+                    .appendTo($buttonDiv);
+            }
+
+            var $stopAudio = $('<button>')
+                .addClass("btn btn-primary")
+                .on('click', stopAudio)
+                .text("Stop")
+                .appendTo($buttonDiv);
+        }
+
+
+        $(document).ready(function () {
+            var numAudio = 8;
+
+            createButtons(numAudio);
+
+        });
+    </script>
+
+    <!-- CSS -->
+    <style type="text/css">
+        <!--
+        button {
+
+            padding: 10px;
+            margin: 5px;
+        }
+        -->
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="jumbotron">
+        <h1>UCF0920FSF</h1>
+    </div>
+    <div id="soundsDiv"></div>
+</div>
+
+
+</body>
+</html>
